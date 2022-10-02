@@ -1,4 +1,6 @@
 ﻿
+using ContactMinimalApi.Data.Repositories;
+using ContactMinimalApi.Data.Repositories.Interfaces;
 using ContactMinimalApi.Infra;
 using Microsoft.OpenApi.Models;
 using Npgsql;
@@ -32,6 +34,14 @@ public static class ServiceCollectionExtensions
         builder.Services.AddNpgsql<ContactDbContext>(connectionString);
 
         builder.Services.AddScoped(_ => new NpgsqlConnection(connectionString));
+
+        return builder;
+    }
+
+    public static WebApplicationBuilder AddDependencies(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddScoped<IContactRepository, ContactRepository>();
+        builder.Services.AddScoped<IPeopleRepository, PeopleRepository>();
 
         return builder;
     }

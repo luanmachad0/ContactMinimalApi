@@ -37,7 +37,7 @@ namespace ContactMinimalApi.Endpoints
                 .ProducesValidationProblem()
                 .Produces<People>(StatusCodes.Status201Created);
 
-            app.MapPut("/tarefas/{id}", async (int id, People people, IPeopleRepository peopleRepository) =>
+            app.MapPut("/peoples/{id}", async (int id, People people, IPeopleRepository peopleRepository) =>
             {
                 try
                 {
@@ -54,7 +54,7 @@ namespace ContactMinimalApi.Endpoints
                 .Produces(StatusCodes.Status204NoContent)
                 .Produces(StatusCodes.Status404NotFound);
 
-            app.MapDelete("/tarefas/{id}", async (int id, IPeopleRepository peopleRepository) =>
+            app.MapDelete("/people/{id}", async (int id, IPeopleRepository peopleRepository) =>
             {
                 try
                 {
