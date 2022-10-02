@@ -14,8 +14,8 @@ internal static class ApplicationBuilderExtensions
     {
         app.UseCors(p =>
         {
+            p.AllowAnyMethod();
             p.AllowAnyOrigin();
-            p.WithMethods("GET");
             p.AllowAnyHeader();
         });
         return app;

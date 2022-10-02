@@ -28,7 +28,7 @@ namespace ContactMinimalApi.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Contact> Get(int id) => await _context.Contacts.FindAsync(id);
+        public async Task<List<Contact>> Get(int id) => await _context.Contacts.Where(c => c.PeopleId == id).ToListAsync();
 
         public async Task<IEnumerable<Contact>> GetAll() => await _context.Contacts.ToListAsync();
 

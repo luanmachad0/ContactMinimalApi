@@ -13,8 +13,8 @@ namespace ContactMinimalApi.Endpoints
 
             app.MapGet("/contacts/{id}",
                 async (int id, IContactRepository contactRepository) => await contactRepository.Get(id)
-                    is Contact contact
-                        ? Results.Ok(contact)
+                    is List<Contact> contacts
+                        ? Results.Ok(contacts)
                         : Results.NotFound())
                 .WithName("GetContactById")
                 .Produces<Contact>(StatusCodes.Status200OK)
@@ -37,12 +37,12 @@ namespace ContactMinimalApi.Endpoints
                 .ProducesValidationProblem()
                 .Produces<Contact>(StatusCodes.Status201Created);
 
-            app.MapPut("/contacts/{id}", async (int id, Contact contact, IContactRepository contactRepository) =>
+            app.MapPut("/contacts", async (Contact contact, IContactRepository contactRepository) =>
             {
                 try
                 {
                     await contactRepository.Update(contact);
-                    return Results.NoContent();
+                    return Results.Accepted($"/contacts/{contact.Id}", contact);
                 }
                 catch (Exception ex)
                 {
